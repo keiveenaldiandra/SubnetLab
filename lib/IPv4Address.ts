@@ -1,43 +1,30 @@
 export class IPv4Address {
-  private address: string;
+  private constructor(private readonly value: number) {}
 
-  constructor(address: string) {
-    if (!IPv4Address.isValid(address)) {
-      throw new Error("IPv4 address tidak valid");
+  static parse(text: string): IPv4Address | null {
+    const parts = text.trim().split(".");
+    if (parts.length !== 4) return null;
+    let v = 0;
+    for (const p of parts) {
+      if (!/^\d{1,3}$/.test(p) || Number(p) > 255) return null;
+      v = v * 256 + Number(p);
     }
-
-    this.address = address;
+    return new IPv4Address(v);
   }
 
-  public getAddress(): string {
-    return this.address;
+  static fromInt(v: number): IPv4Address {
+    return new IPv4Address(v >>> 0);
   }
 
-  public toBinary(): string {
-    return this.address
-      .split(".")
-      .map((octet) => Number(octet).toString(2).padStart(8, "0"))
-      .join(".");
+  toInt(): number {
+    return this.value;
   }
 
-  public getOctets(): number[] {
-    return this.address.split(".").map(Number);
+  octets(): number[] {
+    return [24, 16, 8, 0].map((s) => (this.value >>> s) & 255);
   }
 
-  public static isValid(address: string): boolean {
-    const parts = address.split(".");
-
-    if (parts.length !== 4) {
-      return false;
-    }
-
-    return parts.every((part) => {
-      if (!/^\d+$/.test(part)) {
-        return false;
-      }
-
-      const value = Number(part);
-      return value >= 0 && value <= 255;
-    });
+  toString(): string {
+    return this.octets().join(".");
   }
 }
