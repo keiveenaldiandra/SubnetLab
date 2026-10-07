@@ -1,4 +1,11 @@
 import Link from "next/link";
+import { modules } from "@/data/modules";
+
+export function generateStaticParams() {
+  return modules.map((modul) => ({
+    slug: modul.slug,
+  }));
+}
 
 type ModulDetailPageProps = {
   params: {

@@ -1,2 +1,9 @@
 /** @type {import('next').NextConfig} */
-module.exports = { output: "standalone" };
+const isProd = process.env.NODE_ENV === 'production';
+
+const nextConfig = {
+  output: "export",
+  basePath: isProd ? "/SubnetLab" : "",
+};
+
+module.exports = nextConfig;
