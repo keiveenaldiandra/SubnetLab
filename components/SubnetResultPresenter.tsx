@@ -1,41 +1,24 @@
-type SubnetResultPresenterProps = {
-  networkAddress: string;
-  broadcastAddress: string;
-  firstHost: string;
-  lastHost: string;
-  totalHosts: number;
-};
+import { SubnetResult } from "@/lib/SubnetCalculator";
 
-export default function SubnetResultPresenter({
-  networkAddress,
-  broadcastAddress,
-  firstHost,
-  lastHost,
-  totalHosts,
-}: SubnetResultPresenterProps) {
+// Presenter: hanya menampilkan data dari props, tanpa state atau logika.
+export default function SubnetResultPresenter({ result }: { result: SubnetResult }) {
+  const rows: [string, string][] = [
+    ["Network address", result.network],
+    ["Broadcast address", result.broadcast],
+    ["Subnet mask", result.mask],
+    ["Wildcard mask", result.wildcard],
+    ["Host pertama", result.firstHost],
+    ["Host terakhir", result.lastHost],
+    ["Jumlah host usable", result.totalHosts.toLocaleString("id-ID")],
+  ];
   return (
-    <div>
-      <h2>Hasil Perhitungan</h2>
-
-      <p>
-        <strong>Network Address:</strong> {networkAddress}
-      </p>
-
-      <p>
-        <strong>Broadcast Address:</strong> {broadcastAddress}
-      </p>
-
-      <p>
-        <strong>First Host:</strong> {firstHost}
-      </p>
-
-      <p>
-        <strong>Last Host:</strong> {lastHost}
-      </p>
-
-      <p>
-        <strong>Total Host:</strong> {totalHosts}
-      </p>
-    </div>
+    <dl className="divide-y divide-line border-y border-line">
+      {rows.map(([label, value]) => (
+        <div key={label} className="flex items-baseline justify-between gap-4 py-3">
+          <dt className="text-sm text-ink/70">{label}</dt>
+          <dd className="font-mono text-base font-semibold">{value}</dd>
+        </div>
+      ))}
+    </dl>
   );
 }
