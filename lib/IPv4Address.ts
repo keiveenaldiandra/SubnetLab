@@ -6,7 +6,7 @@ export class IPv4Address {
     if (parts.length !== 4) return null;
     let v = 0;
     for (const p of parts) {
-      if (!/^\d{1,3}$/.test(p) || Number(p) > 255) return null;
+      if (!/^(0|[1-9]\d{0,2})$/.test(p) || Number(p) > 255) return null;
       v = v * 256 + Number(p);
     }
     return new IPv4Address(v);
