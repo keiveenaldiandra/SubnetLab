@@ -2,7 +2,7 @@ FROM node:20-alpine AS deps
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 
 FROM node:20-alpine AS builder
 WORKDIR /app
@@ -10,6 +10,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+ENV SUBNETLAB_OUTPUT=standalone
 RUN npm run build
 
 FROM node:20-alpine AS runner

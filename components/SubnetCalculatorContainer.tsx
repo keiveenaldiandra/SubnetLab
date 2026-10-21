@@ -32,7 +32,7 @@ export default function SubnetCalculatorContainer() {
         </div>
         {error && <p role="alert" className="text-sm text-red-700">{error}</p>}
       </div>
-      <div className="space-y-8">
+      <div className="min-w-0 space-y-8">
         {ip && result ? (
           <>
             <div>
