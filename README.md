@@ -20,6 +20,8 @@ Untuk hosting pada root domain, set `NEXT_PUBLIC_BASE_PATH` ke string kosong saa
 
 Tes mencakup validasi IPv4, prefix /0 sampai /32, hasil contoh dan alokasi VLSM, serta HTTP untuk seluruh halaman, tautan internal, anchor, aset, dan halaman 404. `npm run typecheck` memeriksa TypeScript.
 
+Saat `npm run dev` berjalan, jalankan `npm run test:dev` dari terminal lain untuk memeriksa akses langsung, refresh, navigasi client, dan 404 pada development server. Target default `http://127.0.0.1:3000` dapat diubah melalui `SUBNETLAB_TEST_ORIGIN`. Mode development tidak mengaktifkan `output: export`; export statis hanya dipakai saat build produksi agar route modul tetap dapat dirender oleh Next.js 14.
+
 ## Design pattern
 Container-Presenter + Custom Hooks: `SubnetCalculatorContainer` (container), `SubnetResultPresenter` dan `BinaryOctets` (presenter), `useSubnetCalc` (hook). Logika hitung ada di class `IPv4Address` dan `SubnetCalculator` (OOP).
 

@@ -9,6 +9,7 @@
     "preview": "node scripts/preview.cjs",
     "test": "node --test tests/subnet.test.cjs",
     "test:export": "node --test tests/export.test.cjs",
+    "test:dev": "node --test tests/dev.test.cjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": { "next": "14.2.15", "react": "18.3.1", "react-dom": "18.3.1" },
